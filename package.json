@@ -1,0 +1,19 @@
+{
+  "name": "cc2qtc",
+  "version": "1.0.0",
+  "description": "Generates a generic QtCreator project (.creator) from LLVM compile_commands.json",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "cc2qtc": "./src/make_creator_project.js"
+  },
+  "keywords": [
+    "llvm",
+    "qtcreator",
+    "c++"
+  ],
+  "author": "Juha Turunen (turunen@iki.fi)",
+  "license": "ISC"
+}
