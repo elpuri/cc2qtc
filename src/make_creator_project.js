@@ -27,7 +27,7 @@ try {
 }
 
 var dflags = {};
-var auxFileExtensions = ['.js', '.txt', '.cmake'];
+var fileExtensions = ['.c', '.cpp', '.h', '.hpp', '.js', '.txt', '.cmake'];
 
 var filesStream = fs.createWriteStream(projectName + '.files');
 
@@ -39,9 +39,9 @@ var traverseDirectory = function(path) {
         if (attrs && attrs.isDirectory()) {
             traverseDirectory(entry);
         } else {
-            for (var i = 0; i < auxFileExtensions.length; i++) {
-                if (entry.lastIndexOf(auxFileExtensions[i]) === entry.length - auxFileExtensions[i].length) {
-                    console.log('Aux file', entry);
+            for (var i = 0; i < fileExtensions.length; i++) {
+                if (entry.lastIndexOf(fileExtensions[i]) === entry.length - fileExtensions[i].length) {
+                    console.log('Adding file', entry);
                     filesStream.write(entry + '\n');
                     break;
                 }
@@ -78,8 +78,6 @@ commands.forEach(function(command) {
     while ((includeDirMatch = includeRE.exec(command.command)) !== null) {
         includeDirs[includeDirMatch[1]] = null;
     }
-
-    filesStream.write(command.file + '\n');
 })
 filesStream.end();
 
