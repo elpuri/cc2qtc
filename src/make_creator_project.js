@@ -1,9 +1,17 @@
 #!/usr/bin/env node
 
 // Generates generic Qt creator project files from compilation_commands.json
-var args = process.argv.slice(2);
+
+var prog = require('commander');
+
+prog.version('1.0.1')
+    .usage('[options] <project name> <build dir> [source dir]')
+    .option('-i, --ignore-dir <name>', 'Ignore directories when importing auxiliary files')
+    .parse(process.argv);
+
+var args = prog.args;
 if (args.length < 2) {
-    console.log('Usage:', process.argv[0], '<project name> <build dir> [source dir]');
+    console.log('Usage:', process.argv[0], '');
     console.log('source dir is searched recursively for auxiliary files');
     return;
 }
@@ -27,7 +35,7 @@ try {
 }
 
 var dflags = {};
-var fileExtensions = ['.c', '.cpp', '.h', '.hpp', '.js', '.txt', '.cmake'];
+var fileExtensions = ['.c', '.cpp', '.h', '.hpp', '.js', '.txt', '.cmake', '.xml'];
 
 var filesStream = fs.createWriteStream(projectName + '.files');
 
@@ -41,9 +49,11 @@ var traverseDirectory = function(path) {
         } else {
             for (var i = 0; i < fileExtensions.length; i++) {
                 if (entry.lastIndexOf(fileExtensions[i]) === entry.length - fileExtensions[i].length) {
-                    console.log('Adding file', entry);
-                    filesStream.write(entry + '\n');
-                    break;
+                    if (!prog.ignoreDir || path.indexOf(prog.ignoreDir) === -1) {                        
+                        console.log('Adding file', entry);
+                        filesStream.write(entry + '\n');
+                        break;
+                    }
                 }
             }
         }

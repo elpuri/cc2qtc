@@ -1,6 +1,6 @@
 {
   "name": "cc2qtc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generates a generic QtCreator project (.creator) from LLVM compile_commands.json",
   "main": "",
   "scripts": {
@@ -15,5 +15,8 @@
     "c++"
   ],
   "author": "Juha Turunen (turunen@iki.fi)",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.9.0"
+  }
 }
