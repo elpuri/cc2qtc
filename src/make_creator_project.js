@@ -43,6 +43,9 @@ var traverseDirectory = function(path) {
     var entries = fs.readdirSync(path);
     entries.forEach(function(entry) {
         entry = path + '/' + entry;
+        if (!fs.existsSync(entry))
+            return;
+
         var attrs = fs.statSync(entry);
         if (attrs && attrs.isDirectory()) {
             traverseDirectory(entry);
