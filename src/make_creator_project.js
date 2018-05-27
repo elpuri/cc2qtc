@@ -11,7 +11,7 @@ prog.version('1.0.1')
 
 var args = prog.args;
 if (args.length < 2) {
-    console.log('Usage:', process.argv[0], '');
+    prog.help();
     console.log('source dir is searched recursively for auxiliary files');
     return;
 }
